@@ -56,6 +56,8 @@ class Window(QMainWindow):
 
         # Create a a toolbar object at the top of the window to hold relevant actions
         self._createToolBar()
+        
+        app.aboutToQuit.connect(self.onExitButtonClick)
 
         acceptGUICommand("CONN")
 
@@ -233,7 +235,7 @@ class ReceiveFileWidget(QWidget):
         if self.selected_label.text() != "Select a File:":
             print(self.selected_label.text())
             acceptGUICommand("RECV", self.selected_label.text())
-            self.update()
+            self.repaint()
 
 
 
