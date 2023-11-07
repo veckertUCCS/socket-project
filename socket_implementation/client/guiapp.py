@@ -121,6 +121,7 @@ class Window(QMainWindow):
                 # TODO implement functionality to interact with the server here., this is where the file
                 # will be sent to the server
                 acceptGUICommand("SEND", dialog.selectedFiles()[0])
+                self.setCentralWidget(ReceiveFileWidget())
             # If the user closes the window or cancels, abort
             else:
                 print("Aborted.")
@@ -140,6 +141,7 @@ class Window(QMainWindow):
                     # TODO implement functionality to interact with the server here., this is where the file
                     # will be sent to the server
                     acceptGUICommand("SEND", dialog.selectedFiles()[0])
+                    self.setCentralWidget(ReceiveFileWidget())
                 # If the user closes the window or cancels, abort
                 else:
                     print("Aborted.")
@@ -178,6 +180,7 @@ class Window(QMainWindow):
         # If authentication succeeds, let the app know of the success and remove the login button
         if dlg.exec():
             self.is_authenticated = True
+            self.setCentralWidget(QLabel("LOGIN SUCCESSFUL"))
         # Otherwise, exit the window
         else:
             self.is_authenticated = False
@@ -235,7 +238,7 @@ class ReceiveFileWidget(QWidget):
         if self.selected_label.text() != "Select a File:":
             print(self.selected_label.text())
             acceptGUICommand("RECV", self.selected_label.text())
-            self.repaint()
+            window.setCentralWidget(ReceiveFileWidget())
 
 
 
