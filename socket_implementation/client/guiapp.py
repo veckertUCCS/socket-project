@@ -57,7 +57,7 @@ class Window(QMainWindow):
         # Create a a toolbar object at the top of the window to hold relevant actions
         self._createToolBar()
         
-        app.aboutToQuit.connect(self.onExitButtonClick)
+        app.aboutToQuit.connect(self.onXButtonClick)
 
         acceptGUICommand("CONN")
 
@@ -148,9 +148,11 @@ class Window(QMainWindow):
             # If the user fails to authenticate, exit the window
             else:
                 print("Failed!")
-
+                
+    def onXButtonClick(self):
+    	acceptGUICommand("EXIT")
+    	
     def onExitButtonClick(self):
-        acceptGUICommand("EXIT")
         self.close()
 
     """
