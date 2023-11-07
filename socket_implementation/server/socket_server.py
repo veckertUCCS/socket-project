@@ -1,3 +1,7 @@
+# Socket Server Code
+# Author: Victor Eckert
+# High-level structure referenced from https://github.com/E-Renshaw/ftp-socket-server-python
+
 import socket
 import os
 import sys
@@ -183,6 +187,7 @@ def isolate_file_name(filepath):
     return path_list[len(path_list) - 1]
 
 while True:
+    print("--------------------------------------")
     print("Awaiting command from client...")
     data = client.recv(CMD_SIZE).decode()
     if data == "AUTH":

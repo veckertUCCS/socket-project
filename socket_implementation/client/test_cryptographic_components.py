@@ -3,33 +3,27 @@ import hashlib
 from cryptographic_components import *
 import base64
 
-#SETUP CODE
-file1 = open("test_data.txt", "rb")
-file2 = open("testing_key.txt", "rb")
+# SETUP CODE
+# Initialize test values and a test key for the Fernet engine
+test_data_0 = "Here's some data to encrypt!".encode()
+test_data_1 = "This is another set of data to encrypt!".encode()
+test_key = "7IpGDicXFjJ8y69W4J1WexT17uzxrK9fVzyk0RcjBuk=".encode()
 
-test_data_0 = file1.read()
-test_data_1 = test_data_0
-test_key = file2.read()
-
-file1.close()
-file2.close()
-
+# Initialize the Fernet engine to perform encryption and decryption
 crypt_engine = Fernet(test_key)
-
 
 # TAG TESTS
 # Test that the tagging function produces a correct tag
 def test_tag_generation():
-    assert str(tag_data(test_data_0)) == "7671a0fe8ced3157583a69289b691d028370231800d35fa24240e17f3e010aa8"
+    assert str(tag_data(test_data_0)) == "69d8a949c99834fadc6a389ba1032a779f6f7973d7ac71b52937b65eed015c19"
 
 # Test that the validation function recognizes a valid tag
 def test_tag_validation_success():
-    assert validate_tag(test_data_0, "7671a0fe8ced3157583a69289b691d028370231800d35fa24240e17f3e010aa8")
+    assert validate_tag(test_data_0, "69d8a949c99834fadc6a389ba1032a779f6f7973d7ac71b52937b65eed015c19")
 
 # Test that the validation function recognizes an invalid tag
 def test_tag_validation_failure():
     assert not validate_tag(test_data_0, "8671a0fe8ced3157583a69289b691d028370231800d35fa24240e17f3e010aa8")
-
 
 # ENCRYPTION TESTS
 # Testing the results of encryption with Fernet is tricky, as the body of the ciphertext
@@ -48,7 +42,6 @@ def test_encrypt_data_succeeds():
 # Test that the encrypted result has the correct initial value
 def test_encrypt_data_yields_valid_indicator():
     assert base64.urlsafe_b64decode(encrypt_data(test_data_0, crypt_engine))[0] == 128
-
 
 # DECRYPTION TESTS
 # Test that the decryption function returns the correct result

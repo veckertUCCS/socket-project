@@ -22,7 +22,6 @@ def validate_tag(data: bytes, tag: bytes) -> bool:
     else:
         return False
 
-
 # Function to read the contents of a file from a specified path as bytes
 def read_bytes_from_file(file_path: str) -> bytes:
     file = open(file_path, "rb")
@@ -30,6 +29,7 @@ def read_bytes_from_file(file_path: str) -> bytes:
     file.close()
     return bytestring
 
+# Function to encrypt a file in preparation for transport
 def encrypt_file_for_transport(file_path: str, crypto_engine: Fernet) -> None:
     #TODO figure out where to place initialization of cryptographic components
     content_bytes = read_bytes_from_file(file_path)
@@ -39,6 +39,7 @@ def encrypt_file_for_transport(file_path: str, crypto_engine: Fernet) -> None:
     file.write(encrypted_content+",".encode()+content_tag)
     file.close()
 
+# Function to decrypt a file that has been received
 def decrypt_file_from_transport(file_path: str, crypto_engine: Fernet) -> None:
     #TODO figure out where to place initialization of cryptographic components
     file = open(file_path, "r")

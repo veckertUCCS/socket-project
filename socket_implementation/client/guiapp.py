@@ -1,8 +1,6 @@
-# guiapp.py
-
+# guiapp.py -> Socket Implementation
+# Author: Victor Eckert
 # This is the baseline for the GUI portion of our application using PyQt6
-
-# TODO DRY out the authentication mechanism
 
 import sys
 from socket_client import *
@@ -67,12 +65,13 @@ class Window(QMainWindow):
         # Creates a QToolBar object to attach actions to
         tools = QToolBar()
 
+	# Creates a button on the toolbar for a home menu function
         tools.addAction("Home", self.onHomeButtonClick)
 
-        # Creates a button on the toolbar for a (unimplemented) Send File action 
+        # Creates a button on the toolbar for a Send File action 
         tools.addAction("Send File", self.onSendButtonClick)
 
-        # Creates a button on the toolbar for a (unimplemented) Receive File action 
+        # Creates a button on the toolbar for a Receive File action 
         tools.addAction("Receive File", self.onReceiveButtonClick)
 
         # Creates a button on the toolbar for to trigger the exit function, closing the window
@@ -179,7 +178,7 @@ class Window(QMainWindow):
             self.is_authenticated = True
         # Otherwise, exit the window
         else:
-            print("Failed!")
+            self.is_authenticated = False
 
 """
     Class to support the functionality to select a file and send
@@ -207,6 +206,7 @@ class ReceiveFileWidget(QWidget):
         # TODO Server interaction here... populate this with server
         # filesystem options
         file_list = acceptGUICommand("LIST")
+        file_list.remove(file_list[len(file_list)-1])
         widget.addItems(file_list)
 
         # When the selected item changes, update the label
@@ -225,7 +225,7 @@ class ReceiveFileWidget(QWidget):
         self.selected_label.setText(i.text())
 
     """
-        TODO Add server interaction here to pull the requested file down from
+        Server interaction here to pull the requested file down from
         the server
     """
     def request_file(self):
@@ -269,7 +269,7 @@ class AuthenticationDialog(QDialog):
         self.setLayout(self.layout)
         
     """ 
-        TODO Implement functionality to interact with the server here, this is
+        Functionality to interact with the server here, this is
         where the client attempts to authenticate with the server
     """
     def attempt_authentication(self):

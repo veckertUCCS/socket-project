@@ -1,3 +1,7 @@
+# Socket Client Code
+# Author: Victor Eckert
+# High-level structure referenced from https://github.com/E-Renshaw/ftp-socket-server-python
+
 import socket, sys, os, hashlib
 from cryptography.fernet import Fernet
 from cryptographic_components import *
@@ -174,6 +178,7 @@ def create_file_list(file_string):
     return file_string.split(",")
 
 def acceptGUICommand(command: str, parameter = ""):
+    print("-------------------------------")
     if command == "CONN":
         connect()
     elif command == "AUTH":
