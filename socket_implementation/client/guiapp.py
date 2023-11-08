@@ -131,7 +131,7 @@ class Window(QMainWindow):
             # If the authentication is successful, let the app know it has been authenticated
             if dlg.exec():
                 self.is_authenticated = True
-                self.log_in_button.setParent(None) # Set the home button's parent to none to remove it
+                
 
                 # Open the file selection dialog menu
                 dialog = QFileDialog() 
@@ -145,6 +145,7 @@ class Window(QMainWindow):
                 # If the user closes the window or cancels, abort
                 else:
                     print("Aborted.")
+                self.setCentralWidget(QLabel("LOGIN SUCCESSFUL"))
             # If the user fails to authenticate, exit the window
             else:
                 print("Failed!")
